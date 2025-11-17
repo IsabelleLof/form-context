@@ -30,6 +30,7 @@ export interface FormData {
 interface FormContextValue {
   data: FormData;
   updateField: <K extends keyof FormData>(field: K, value: FormData[K]) => void;
+  
 }
 
 const FormContext = createContext<FormContextValue | undefined>(undefined);
@@ -53,6 +54,8 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<FormData>(initialData);
 
   const updateField: FormContextValue["updateField"] = (field, value) => {
+    console.log("Updated:", field, value);
+
     setData(prev => ({
       ...prev,
       [field]: value,
